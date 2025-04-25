@@ -105,6 +105,3 @@ Die SQLite-Datenbank wird automatisch erstellt und enthält zwei Tabellen:
    - `awarded_by`: Discord ID des Vergebenden
    - `awarded_at`: Zeitpunkt der Vergabe
 
-## Lizenz
-
-MIT License 
