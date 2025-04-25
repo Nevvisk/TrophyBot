@@ -1,0 +1,42 @@
+2025-04-25 23:33:43.163 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Starting Trophy Bot...
+2025-04-25 23:33:43.164 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Initializing Trophy Bot...
+2025-04-25 23:33:43.165 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Configuration loaded successfully
+2025-04-25 23:33:43.166 [main] ERROR c.amongthesloths.trophybot.TrophyBot - Failed to start Trophy Bot
+java.lang.NullPointerException: Cannot invoke "org.json.JSONObject.getJSONObject(String)" because "this.config" is null
+	at com.amongthesloths.trophybot.ConfigManager.getDatabaseUrl(ConfigManager.java:49)
+	at com.amongthesloths.trophybot.TrophyBot.<init>(TrophyBot.java:29)
+	at com.amongthesloths.trophybot.TrophyBot.main(TrophyBot.java:88)
+2025-04-25 23:35:24.926 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Starting Trophy Bot...
+2025-04-25 23:35:24.927 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Initializing Trophy Bot...
+2025-04-25 23:35:24.927 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Configuration loaded successfully
+2025-04-25 23:35:24.929 [main] ERROR c.amongthesloths.trophybot.TrophyBot - Failed to start Trophy Bot
+java.lang.NullPointerException: Cannot invoke "org.json.JSONObject.getJSONObject(String)" because "this.config" is null
+	at com.amongthesloths.trophybot.ConfigManager.getDatabaseUrl(ConfigManager.java:49)
+	at com.amongthesloths.trophybot.TrophyBot.<init>(TrophyBot.java:29)
+	at com.amongthesloths.trophybot.TrophyBot.main(TrophyBot.java:88)
+2025-04-25 23:36:14.533 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Starting Trophy Bot...
+2025-04-25 23:36:14.534 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Initializing Trophy Bot...
+2025-04-25 23:36:14.535 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Configuration loaded successfully
+2025-04-25 23:36:14.536 [main] INFO  c.a.trophybot.DatabaseManager - Initializing database connection to: jdbc:sqlite:trophies.db
+2025-04-25 23:36:14.734 [main] INFO  c.a.trophybot.DatabaseManager - Database initialized successfully
+2025-04-25 23:36:14.734 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Database connection established successfully
+2025-04-25 23:36:15.281 [main] INFO  net.dv8tion.jda.api.JDA - Login Successful!
+2025-04-25 23:36:15.293 [main] INFO  c.amongthesloths.trophybot.TrophyBot - JDA instance initialized successfully
+2025-04-25 23:36:15.302 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Slash commands registered successfully
+2025-04-25 23:36:15.302 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Trophy Bot started successfully!
+2025-04-25 23:36:15.530 [JDA MainWS-WriteThread] INFO  n.d.j.i.requests.WebSocketClient - Connected to WebSocket
+2025-04-25 23:36:15.584 [ForkJoinPool.commonPool-worker-1] INFO  c.amongthesloths.trophybot.TrophyBot - Successfully registered slash commands
+2025-04-25 23:36:15.750 [JDA MainWS-ReadThread] INFO  net.dv8tion.jda.api.JDA - Finished Loading!
+2025-04-25 23:41:58.534 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Starting Trophy Bot...
+2025-04-25 23:41:58.535 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Initializing Trophy Bot...
+2025-04-25 23:41:58.536 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Configuration loaded successfully
+2025-04-25 23:41:58.537 [main] INFO  c.a.trophybot.DatabaseManager - Initializing database connection to: jdbc:sqlite:trophies.db
+2025-04-25 23:41:58.732 [main] INFO  c.a.trophybot.DatabaseManager - Database initialized successfully
+2025-04-25 23:41:58.732 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Database connection established successfully
+2025-04-25 23:41:59.295 [main] INFO  net.dv8tion.jda.api.JDA - Login Successful!
+2025-04-25 23:41:59.306 [main] INFO  c.amongthesloths.trophybot.TrophyBot - JDA instance initialized successfully
+2025-04-25 23:41:59.315 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Slash commands registered successfully
+2025-04-25 23:41:59.315 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Trophy Bot started successfully!
+2025-04-25 23:41:59.534 [JDA MainWS-ReadThread] INFO  n.d.j.i.requests.WebSocketClient - Connected to WebSocket
+2025-04-25 23:41:59.788 [JDA MainWS-ReadThread] INFO  net.dv8tion.jda.api.JDA - Finished Loading!
+2025-04-25 23:42:01.559 [ForkJoinPool.commonPool-worker-1] INFO  c.amongthesloths.trophybot.TrophyBot - Successfully registered slash commands

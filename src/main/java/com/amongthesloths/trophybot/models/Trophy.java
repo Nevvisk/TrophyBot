@@ -9,15 +9,17 @@ public class Trophy {
     private int id;
     private String name;
     private String description;
-    private String iconUrl;
+    private String emoji;
     private LocalDateTime createdAt;
+    private String createdBy;
 
-    public Trophy(int id, String name, String description, String iconUrl, LocalDateTime createdAt) {
+    public Trophy(int id, String name, String description, String emoji, LocalDateTime createdAt, String createdBy) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.iconUrl = iconUrl;
+        this.emoji = emoji;
         this.createdAt = createdAt;
+        this.createdBy = createdBy;
     }
 
     // Getters and Setters
@@ -46,11 +48,11 @@ public class Trophy {
     }
 
     public String getIconUrl() {
-        return iconUrl;
+        return emoji;
     }
 
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
+    public void setIconUrl(String emoji) {
+        this.emoji = emoji;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -61,13 +63,21 @@ public class Trophy {
         this.createdAt = createdAt;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
     public MessageEmbed createEmbed() {
         return new EmbedBuilder()
-            .setTitle(name)
+            .setTitle(emoji + " " + name)
             .setDescription(description)
-            .setThumbnail(iconUrl)
             .setColor(Color.YELLOW)
-            .setFooter("Trophy ID: " + id)
+            .setFooter("Trophy ID: " + id + " | Created by: " + createdBy)
+            .setTimestamp(createdAt)
             .build();
     }
 } 

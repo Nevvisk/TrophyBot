@@ -76,10 +76,11 @@ public class CommandHandler extends ListenerAdapter {
     private void createTrophy(SlashCommandInteractionEvent event) {
         String name = event.getOption("name", OptionMapping::getAsString);
         String description = event.getOption("description", OptionMapping::getAsString);
-        String iconUrl = event.getOption("icon", OptionMapping::getAsString);
+        String emoji = event.getOption("emoji", OptionMapping::getAsString);
+        String createdBy = event.getUser().getId();
 
         try {
-            Trophy trophy = dbManager.createTrophy(name, description, iconUrl);
+            Trophy trophy = dbManager.createTrophy(name, description, emoji, createdBy);
             event.reply("Trophäe erfolgreich erstellt!")
                 .addEmbeds(trophy.createEmbed())
                 .queue();
@@ -103,7 +104,8 @@ public class CommandHandler extends ListenerAdapter {
 
             dbManager.awardTrophy(
                 user.getId(),
-                trophyId
+                trophyId,
+                event.getUser().getId()
             );
 
             event.reply("Trophäe erfolgreich vergeben!")

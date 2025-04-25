@@ -4,11 +4,12 @@ Ein Discord-Bot zum Verwalten und Vergeben von Trophäen an Server-Mitglieder.
 
 ## Features
 
-- Erstellen von Trophäen mit Namen, Beschreibung und Icon
+- Erstellen von Trophäen mit Namen, Beschreibung und Emoji
+- Automatische Erfassung des Erstellers jeder Trophäe
 - Vergeben von Trophäen an Server-Mitglieder
 - Anzeigen von Trophäenprofilen
 - Leaderboard für die meisten Trophäen
-- Detailansicht von Trophäen mit Gewinnerliste
+- Detailansicht von Trophäen mit Gewinnerliste und Erstellungsinformationen
 - Paginierte Trophäenliste
 - **Neue Admin-Befehle**: Zurücksetzen von Trophäen und Sichern der Datenbank
 
@@ -62,10 +63,17 @@ java -jar target/trophy-bot-1.0-SNAPSHOT.jar
 ### Trophäen-Befehle
 
 - `/trophy create` - Erstelle eine neue Trophäe (Admin)
+  - `name`: Name der Trophäe
+  - `description`: Beschreibung der Trophäe
+  - `emoji`: Emoji für die Trophäe (z.B. 🏆, ⭐, 🎮)
 - `/trophy award` - Vergebe eine Trophäe an einen Spieler (Admin)
+  - `user`: Der Benutzer, der die Trophäe erhalten soll
+  - `trophy_id`: ID der zu vergebenden Trophäe
 - `/trophy list` - Zeige alle verfügbaren Trophäen
 - `/trophy show` - Zeige Details einer Trophäe
+  - `trophy_id`: ID der anzuzeigenden Trophäe
 - `/trophy profile` - Zeige Trophäen eines Spielers
+  - `user`: (Optional) Der Benutzer, dessen Profil angezeigt werden soll
 - `/trophy leaderboard` - Zeige das Trophy-Leaderboard
 
 ### Admin-Befehle
@@ -83,12 +91,19 @@ java -jar target/trophy-bot-1.0-SNAPSHOT.jar
 Die SQLite-Datenbank wird automatisch erstellt und enthält zwei Tabellen:
 
 1. `trophies` - Speichert alle Trophäen
-2. `user_trophies` - Speichert die Verbindung zwischen Benutzern und Trophäen
+   - `id`: Eindeutige ID der Trophäe
+   - `name`: Name der Trophäe
+   - `description`: Beschreibung der Trophäe
+   - `emoji`: Emoji der Trophäe
+   - `created_at`: Erstellungszeitpunkt
+   - `created_by`: Discord ID des Erstellers
 
-**Neue Methoden**:
-- `getTrophyById(int trophyId)`: Gibt eine Trophäe anhand ihrer ID zurück.
-- `getUsersWithTrophy(int trophyId)`: Gibt eine Liste von Benutzern zurück, die eine bestimmte Trophäe besitzen.
-- `getLeaderboard(int limit)`: Gibt die Top-Benutzer basierend auf der Anzahl der Trophäen zurück.
+2. `trophy_awards` - Speichert die Verbindung zwischen Benutzern und Trophäen
+   - `id`: Eindeutige ID der Vergabe
+   - `trophy_id`: ID der vergebenen Trophäe
+   - `user_id`: Discord ID des Empfängers
+   - `awarded_by`: Discord ID des Vergebenden
+   - `awarded_at`: Zeitpunkt der Vergabe
 
 ## Lizenz
 

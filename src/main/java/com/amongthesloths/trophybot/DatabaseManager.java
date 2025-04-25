@@ -5,10 +5,15 @@ import com.amongthesloths.trophybot.models.UserTrophy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DatabaseManager {
     private static final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
@@ -16,57 +21,57 @@ public class DatabaseManager {
 
     public DatabaseManager(String url, String user, String password) throws SQLException {
         logger.info("Initializing database connection to: {}", url);
+        this.connection = DriverManager.getConnection(url, user, password);
+        initializeDatabase();
+    }
+
+    private void initializeDatabase() {
         try {
-            this.connection = DriverManager.getConnection(url, user, password);
-            initializeDatabase();
-            logger.info("Database initialized successfully");
-        } catch (SQLException e) {
-            logger.error("Failed to initialize database", e);
-            throw e;
+            // Read schema.sql from resources
+            try (InputStream is = getClass().getClassLoader().getResourceAsStream("schema.sql")) {
+                if (is == null) {
+                    throw new RuntimeException("Could not find schema.sql in resources");
+                }
+
+                String schema = new BufferedReader(new InputStreamReader(is))
+                    .lines()
+                    .collect(Collectors.joining("\n"));
+
+                // Split the schema into individual statements
+                String[] statements = schema.split(";");
+
+                // Execute each statement
+                for (String statement : statements) {
+                    if (!statement.trim().isEmpty()) {
+                        try (Statement stmt = connection.createStatement()) {
+                            stmt.execute(statement);
+                        }
+                    }
+                }
+                logger.info("Database schema initialized successfully");
+            }
+        } catch (IOException | SQLException e) {
+            logger.error("Failed to initialize database schema", e);
+            throw new RuntimeException("Failed to initialize database schema", e);
         }
     }
 
-    private void initializeDatabase() throws SQLException {
-        logger.debug("Creating database tables if they don't exist");
-        try (Statement statement = connection.createStatement()) {
-            // Create trophies table
-            statement.execute("CREATE TABLE IF NOT EXISTS trophies (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "name TEXT NOT NULL, " +
-                    "description TEXT, " +
-                    "icon_url TEXT" +
-                    ")");
-            
-            // Create user_trophies table
-            statement.execute("CREATE TABLE IF NOT EXISTS user_trophies (" +
-                    "user_id TEXT NOT NULL, " +
-                    "trophy_id INTEGER NOT NULL, " +
-                    "award_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
-                    "PRIMARY KEY (user_id, trophy_id), " +
-                    "FOREIGN KEY (trophy_id) REFERENCES trophies(id)" +
-                    ")");
-            logger.debug("Database tables created successfully");
-        } catch (SQLException e) {
-            logger.error("Failed to create database tables", e);
-            throw e;
-        }
-    }
-
-    public Trophy createTrophy(String name, String description, String iconUrl) throws SQLException {
+    public Trophy createTrophy(String name, String description, String emoji, String createdBy) throws SQLException {
         logger.info("Creating new trophy: {}", name);
-        String sql = "INSERT INTO trophies (name, description, icon_url, created_at) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO trophies (name, description, emoji, created_at, created_by) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, name);
             statement.setString(2, description);
-            statement.setString(3, iconUrl);
+            statement.setString(3, emoji);
             Timestamp createdAt = Timestamp.valueOf(LocalDateTime.now());
             statement.setTimestamp(4, createdAt);
+            statement.setString(5, createdBy);
             statement.executeUpdate();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int id = generatedKeys.getInt(1);
-                    Trophy trophy = new Trophy(id, name, description, iconUrl, createdAt.toLocalDateTime());
+                    Trophy trophy = new Trophy(id, name, description, emoji, createdAt.toLocalDateTime(), createdBy);
                     logger.info("Trophy created successfully: {}", trophy);
                     return trophy;
                 } else {
@@ -79,12 +84,14 @@ public class DatabaseManager {
         }
     }
 
-    public void awardTrophy(String userId, int trophyId) throws SQLException {
-        logger.info("Awarding trophy {} to user {}", trophyId, userId);
-        String sql = "INSERT INTO user_trophies (user_id, trophy_id) VALUES (?, ?)";
+    public void awardTrophy(String userId, int trophyId, String awardedBy) throws SQLException {
+        logger.info("Awarding trophy {} to user {} by {}", trophyId, userId, awardedBy);
+        String sql = "INSERT INTO trophy_awards (user_id, trophy_id, awarded_by, awarded_at) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, userId);
             statement.setInt(2, trophyId);
+            statement.setString(3, awardedBy);
+            statement.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
             statement.executeUpdate();
             logger.info("Trophy awarded successfully");
         } catch (SQLException e) {
@@ -104,8 +111,9 @@ public class DatabaseManager {
                     resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getString("description"),
-                    resultSet.getString("icon_url"),
-                    resultSet.getTimestamp("create_date").toLocalDateTime()
+                    resultSet.getString("emoji"),
+                    resultSet.getTimestamp("created_at").toLocalDateTime(),
+                    resultSet.getString("created_by")
                 ));
             }
             logger.debug("Retrieved {} trophies", trophies.size());
@@ -119,10 +127,10 @@ public class DatabaseManager {
     public List<UserTrophy> getUserTrophies(String userId) throws SQLException {
         logger.debug("Fetching trophies for user {}", userId);
         List<UserTrophy> userTrophies = new ArrayList<>();
-        String sql = "SELECT t.*, ut.award_date FROM trophies t " +
-                    "JOIN user_trophies ut ON t.id = ut.trophy_id " +
-                    "WHERE ut.user_id = ? " +
-                    "ORDER BY ut.award_date DESC";
+        String sql = "SELECT t.*, ta.awarded_at FROM trophies t " +
+                    "JOIN trophy_awards ta ON t.id = ta.trophy_id " +
+                    "WHERE ta.user_id = ? " +
+                    "ORDER BY ta.awarded_at DESC";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, userId);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -131,10 +139,11 @@ public class DatabaseManager {
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("description"),
-                        resultSet.getString("icon_url"),
-                        resultSet.getTimestamp("create_date").toLocalDateTime()
+                        resultSet.getString("emoji"),
+                        resultSet.getTimestamp("created_at").toLocalDateTime(),
+                        resultSet.getString("created_by")
                     );
-                    UserTrophy userTrophy = new UserTrophy(trophy, resultSet.getTimestamp("award_date"));
+                    UserTrophy userTrophy = new UserTrophy(trophy, resultSet.getTimestamp("awarded_at"));
                     userTrophies.add(userTrophy);
                 }
             }
@@ -157,8 +166,9 @@ public class DatabaseManager {
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("description"),
-                        resultSet.getString("icon_url"),
-                        resultSet.getTimestamp("created_at").toLocalDateTime()
+                        resultSet.getString("emoji"),
+                        resultSet.getTimestamp("created_at").toLocalDateTime(),
+                        resultSet.getString("created_by")
                     );
                 } else {
                     logger.warn("No trophy found with ID: {}", trophyId);
@@ -184,8 +194,9 @@ public class DatabaseManager {
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("description"),
-                        resultSet.getString("icon_url"),
-                        resultSet.getTimestamp("created_at").toLocalDateTime()
+                        resultSet.getString("emoji"),
+                        resultSet.getTimestamp("created_at").toLocalDateTime(),
+                        resultSet.getString("created_by")
                     );
                     UserTrophy userTrophy = new UserTrophy(trophy, resultSet.getTimestamp("award_date"));
                     userTrophies.add(userTrophy);
@@ -232,7 +243,7 @@ public class DatabaseManager {
     public List<UserTrophyCount> getLeaderboard(int limit) throws SQLException {
         logger.debug("Fetching leaderboard with limit: {}", limit);
         List<UserTrophyCount> leaderboard = new ArrayList<>();
-        String sql = "SELECT user_id, COUNT(*) as count FROM user_trophies GROUP BY user_id ORDER BY count DESC LIMIT ?";
+        String sql = "SELECT user_id, COUNT(*) as count FROM trophy_awards GROUP BY user_id ORDER BY count DESC LIMIT ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, limit);
             try (ResultSet resultSet = statement.executeQuery()) {

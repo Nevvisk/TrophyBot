@@ -1,0 +1,182 @@
+2025-04-26 00:07:17.083 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Starting Trophy Bot...
+2025-04-26 00:07:17.085 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Initializing Trophy Bot...
+2025-04-26 00:07:17.087 [main] INFO  c.a.trophybot.ConfigManager - Configuration loaded successfully
+2025-04-26 00:07:17.087 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Configuration loaded successfully
+2025-04-26 00:07:17.087 [main] INFO  c.a.trophybot.DatabaseManager - Initializing database connection to: jdbc:sqlite:trophies.db
+2025-04-26 00:07:17.285 [main] INFO  c.a.trophybot.DatabaseManager - Database initialized successfully
+2025-04-26 00:07:17.285 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Database connection established successfully
+2025-04-26 00:07:17.799 [main] INFO  net.dv8tion.jda.api.JDA - Login Successful!
+2025-04-26 00:07:17.809 [main] INFO  c.amongthesloths.trophybot.TrophyBot - JDA instance initialized successfully
+2025-04-26 00:07:17.818 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Slash commands registered successfully
+2025-04-26 00:07:17.818 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Trophy Bot started successfully!
+2025-04-26 00:07:18.053 [JDA MainWS-WriteThread] INFO  n.d.j.i.requests.WebSocketClient - Connected to WebSocket
+2025-04-26 00:07:18.129 [ForkJoinPool.commonPool-worker-1] INFO  c.amongthesloths.trophybot.TrophyBot - Successfully registered slash commands
+2025-04-26 00:07:18.267 [JDA MainWS-ReadThread] INFO  net.dv8tion.jda.api.JDA - Finished Loading!
+2025-04-26 00:08:45.708 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Creating new trophy: null
+2025-04-26 00:08:45.715 [JDA MainWS-ReadThread] ERROR c.a.trophybot.DatabaseManager - Failed to create trophy: null
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (table trophies has no column named created_at)
+	at org.sqlite.core.DB.newSQLException(DB.java:1179)
+	at org.sqlite.core.DB.newSQLException(DB.java:1190)
+	at org.sqlite.core.DB.throwex(DB.java:1150)
+	at org.sqlite.core.NativeDB.prepare_utf8(Native Method)
+	at org.sqlite.core.NativeDB.prepare(NativeDB.java:126)
+	at org.sqlite.core.DB.prepare(DB.java:264)
+	at org.sqlite.core.CorePreparedStatement.<init>(CorePreparedStatement.java:46)
+	at org.sqlite.jdbc3.JDBC3PreparedStatement.<init>(JDBC3PreparedStatement.java:32)
+	at org.sqlite.jdbc4.JDBC4PreparedStatement.<init>(JDBC4PreparedStatement.java:25)
+	at org.sqlite.jdbc4.JDBC4Connection.prepareStatement(JDBC4Connection.java:34)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:226)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:206)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:211)
+	at com.amongthesloths.trophybot.DatabaseManager.createTrophy(DatabaseManager.java:58)
+	at com.amongthesloths.trophybot.CommandHandler.createTrophy(CommandHandler.java:82)
+	at com.amongthesloths.trophybot.CommandHandler.handleTrophyCommand(CommandHandler.java:52)
+	at com.amongthesloths.trophybot.CommandHandler.onSlashCommandInteraction(CommandHandler.java:34)
+	at net.dv8tion.jda.api.hooks.ListenerAdapter.onEvent(ListenerAdapter.java:446)
+	at net.dv8tion.jda.api.hooks.InterfacedEventManager.handle(InterfacedEventManager.java:96)
+	at net.dv8tion.jda.internal.hooks.EventManagerProxy.handleInternally(EventManagerProxy.java:88)
+	at net.dv8tion.jda.internal.hooks.EventManagerProxy.handle(EventManagerProxy.java:70)
+	at net.dv8tion.jda.internal.JDAImpl.handleEvent(JDAImpl.java:177)
+	at net.dv8tion.jda.internal.handle.InteractionCreateHandler.handleCommand(InteractionCreateHandler.java:112)
+	at net.dv8tion.jda.internal.handle.InteractionCreateHandler.handleInternally(InteractionCreateHandler.java:83)
+	at net.dv8tion.jda.internal.handle.SocketHandler.handle(SocketHandler.java:39)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.onDispatch(WebSocketClient.java:1015)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.onEvent(WebSocketClient.java:901)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.handleEvent(WebSocketClient.java:879)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.onBinaryMessage(WebSocketClient.java:1054)
+	at com.neovisionaries.ws.client.ListenerManager.callOnBinaryMessage(ListenerManager.java:385)
+	at com.neovisionaries.ws.client.ReadingThread.callOnBinaryMessage(ReadingThread.java:276)
+	at com.neovisionaries.ws.client.ReadingThread.handleBinaryFrame(ReadingThread.java:996)
+	at com.neovisionaries.ws.client.ReadingThread.handleFrame(ReadingThread.java:755)
+	at com.neovisionaries.ws.client.ReadingThread.main(ReadingThread.java:108)
+	at com.neovisionaries.ws.client.ReadingThread.runMain(ReadingThread.java:64)
+	at com.neovisionaries.ws.client.WebSocketThread.run(WebSocketThread.java:45)
+2025-04-26 00:12:17.681 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Starting Trophy Bot...
+2025-04-26 00:12:17.682 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Initializing Trophy Bot...
+2025-04-26 00:12:17.684 [main] INFO  c.a.trophybot.ConfigManager - Configuration loaded successfully
+2025-04-26 00:12:17.684 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Configuration loaded successfully
+2025-04-26 00:12:17.684 [main] INFO  c.a.trophybot.DatabaseManager - Initializing database connection to: jdbc:sqlite:trophies.db
+2025-04-26 00:12:17.883 [main] INFO  c.a.trophybot.DatabaseManager - Database schema initialized successfully
+2025-04-26 00:12:17.883 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Database connection established successfully
+2025-04-26 00:12:18.412 [main] INFO  net.dv8tion.jda.api.JDA - Login Successful!
+2025-04-26 00:12:18.424 [main] INFO  c.amongthesloths.trophybot.TrophyBot - JDA instance initialized successfully
+2025-04-26 00:12:18.433 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Slash commands registered successfully
+2025-04-26 00:12:18.433 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Trophy Bot started successfully!
+2025-04-26 00:12:18.663 [JDA MainWS-ReadThread] INFO  n.d.j.i.requests.WebSocketClient - Connected to WebSocket
+2025-04-26 00:12:18.782 [ForkJoinPool.commonPool-worker-1] INFO  c.amongthesloths.trophybot.TrophyBot - Successfully registered slash commands
+2025-04-26 00:12:18.899 [JDA MainWS-ReadThread] INFO  net.dv8tion.jda.api.JDA - Finished Loading!
+2025-04-26 00:12:43.270 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Creating new trophy: null
+2025-04-26 00:12:43.277 [JDA MainWS-ReadThread] ERROR c.a.trophybot.DatabaseManager - Failed to create trophy: null
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (table trophies has no column named icon_url)
+	at org.sqlite.core.DB.newSQLException(DB.java:1179)
+	at org.sqlite.core.DB.newSQLException(DB.java:1190)
+	at org.sqlite.core.DB.throwex(DB.java:1150)
+	at org.sqlite.core.NativeDB.prepare_utf8(Native Method)
+	at org.sqlite.core.NativeDB.prepare(NativeDB.java:126)
+	at org.sqlite.core.DB.prepare(DB.java:264)
+	at org.sqlite.core.CorePreparedStatement.<init>(CorePreparedStatement.java:46)
+	at org.sqlite.jdbc3.JDBC3PreparedStatement.<init>(JDBC3PreparedStatement.java:32)
+	at org.sqlite.jdbc4.JDBC4PreparedStatement.<init>(JDBC4PreparedStatement.java:25)
+	at org.sqlite.jdbc4.JDBC4Connection.prepareStatement(JDBC4Connection.java:34)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:226)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:206)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:211)
+	at com.amongthesloths.trophybot.DatabaseManager.createTrophy(DatabaseManager.java:62)
+	at com.amongthesloths.trophybot.CommandHandler.createTrophy(CommandHandler.java:82)
+	at com.amongthesloths.trophybot.CommandHandler.handleTrophyCommand(CommandHandler.java:52)
+	at com.amongthesloths.trophybot.CommandHandler.onSlashCommandInteraction(CommandHandler.java:34)
+	at net.dv8tion.jda.api.hooks.ListenerAdapter.onEvent(ListenerAdapter.java:446)
+	at net.dv8tion.jda.api.hooks.InterfacedEventManager.handle(InterfacedEventManager.java:96)
+	at net.dv8tion.jda.internal.hooks.EventManagerProxy.handleInternally(EventManagerProxy.java:88)
+	at net.dv8tion.jda.internal.hooks.EventManagerProxy.handle(EventManagerProxy.java:70)
+	at net.dv8tion.jda.internal.JDAImpl.handleEvent(JDAImpl.java:177)
+	at net.dv8tion.jda.internal.handle.InteractionCreateHandler.handleCommand(InteractionCreateHandler.java:112)
+	at net.dv8tion.jda.internal.handle.InteractionCreateHandler.handleInternally(InteractionCreateHandler.java:83)
+	at net.dv8tion.jda.internal.handle.SocketHandler.handle(SocketHandler.java:39)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.onDispatch(WebSocketClient.java:1015)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.onEvent(WebSocketClient.java:901)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.handleEvent(WebSocketClient.java:879)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.onBinaryMessage(WebSocketClient.java:1054)
+	at com.neovisionaries.ws.client.ListenerManager.callOnBinaryMessage(ListenerManager.java:385)
+	at com.neovisionaries.ws.client.ReadingThread.callOnBinaryMessage(ReadingThread.java:276)
+	at com.neovisionaries.ws.client.ReadingThread.handleBinaryFrame(ReadingThread.java:996)
+	at com.neovisionaries.ws.client.ReadingThread.handleFrame(ReadingThread.java:755)
+	at com.neovisionaries.ws.client.ReadingThread.main(ReadingThread.java:108)
+	at com.neovisionaries.ws.client.ReadingThread.runMain(ReadingThread.java:64)
+	at com.neovisionaries.ws.client.WebSocketThread.run(WebSocketThread.java:45)
+2025-04-26 00:22:07.208 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Starting Trophy Bot...
+2025-04-26 00:22:07.208 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Initializing Trophy Bot...
+2025-04-26 00:22:07.211 [main] INFO  c.a.trophybot.ConfigManager - Configuration loaded successfully
+2025-04-26 00:22:07.211 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Configuration loaded successfully
+2025-04-26 00:22:07.211 [main] INFO  c.a.trophybot.DatabaseManager - Initializing database connection to: jdbc:sqlite:trophies.db
+2025-04-26 00:22:07.409 [main] INFO  c.a.trophybot.DatabaseManager - Database schema initialized successfully
+2025-04-26 00:22:07.409 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Database connection established successfully
+2025-04-26 00:22:07.935 [main] INFO  net.dv8tion.jda.api.JDA - Login Successful!
+2025-04-26 00:22:07.946 [main] INFO  c.amongthesloths.trophybot.TrophyBot - JDA instance initialized successfully
+2025-04-26 00:22:07.955 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Slash commands registered successfully
+2025-04-26 00:22:07.955 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Trophy Bot started successfully!
+2025-04-26 00:22:08.180 [JDA MainWS-ReadThread] INFO  n.d.j.i.requests.WebSocketClient - Connected to WebSocket
+2025-04-26 00:22:08.226 [ForkJoinPool.commonPool-worker-1] INFO  c.amongthesloths.trophybot.TrophyBot - Successfully registered slash commands
+2025-04-26 00:22:08.430 [JDA MainWS-ReadThread] INFO  net.dv8tion.jda.api.JDA - Finished Loading!
+2025-04-26 00:24:14.474 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Creating new trophy: test
+2025-04-26 00:24:14.491 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Trophy created successfully: com.amongthesloths.trophybot.models.Trophy@22dedb1f
+2025-04-26 00:24:53.239 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Awarding trophy 1 to user 134418476717572097
+2025-04-26 00:24:53.247 [JDA MainWS-ReadThread] ERROR c.a.trophybot.DatabaseManager - Failed to award trophy 1 to user 134418476717572097
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: user_trophies)
+	at org.sqlite.core.DB.newSQLException(DB.java:1179)
+	at org.sqlite.core.DB.newSQLException(DB.java:1190)
+	at org.sqlite.core.DB.throwex(DB.java:1150)
+	at org.sqlite.core.NativeDB.prepare_utf8(Native Method)
+	at org.sqlite.core.NativeDB.prepare(NativeDB.java:126)
+	at org.sqlite.core.DB.prepare(DB.java:264)
+	at org.sqlite.core.CorePreparedStatement.<init>(CorePreparedStatement.java:46)
+	at org.sqlite.jdbc3.JDBC3PreparedStatement.<init>(JDBC3PreparedStatement.java:32)
+	at org.sqlite.jdbc4.JDBC4PreparedStatement.<init>(JDBC4PreparedStatement.java:25)
+	at org.sqlite.jdbc4.JDBC4Connection.prepareStatement(JDBC4Connection.java:34)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:226)
+	at org.sqlite.jdbc3.JDBC3Connection.prepareStatement(JDBC3Connection.java:206)
+	at com.amongthesloths.trophybot.DatabaseManager.awardTrophy(DatabaseManager.java:90)
+	at com.amongthesloths.trophybot.CommandHandler.awardTrophy(CommandHandler.java:105)
+	at com.amongthesloths.trophybot.CommandHandler.handleTrophyCommand(CommandHandler.java:59)
+	at com.amongthesloths.trophybot.CommandHandler.onSlashCommandInteraction(CommandHandler.java:34)
+	at net.dv8tion.jda.api.hooks.ListenerAdapter.onEvent(ListenerAdapter.java:446)
+	at net.dv8tion.jda.api.hooks.InterfacedEventManager.handle(InterfacedEventManager.java:96)
+	at net.dv8tion.jda.internal.hooks.EventManagerProxy.handleInternally(EventManagerProxy.java:88)
+	at net.dv8tion.jda.internal.hooks.EventManagerProxy.handle(EventManagerProxy.java:70)
+	at net.dv8tion.jda.internal.JDAImpl.handleEvent(JDAImpl.java:177)
+	at net.dv8tion.jda.internal.handle.InteractionCreateHandler.handleCommand(InteractionCreateHandler.java:112)
+	at net.dv8tion.jda.internal.handle.InteractionCreateHandler.handleInternally(InteractionCreateHandler.java:83)
+	at net.dv8tion.jda.internal.handle.SocketHandler.handle(SocketHandler.java:39)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.onDispatch(WebSocketClient.java:1015)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.onEvent(WebSocketClient.java:901)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.handleEvent(WebSocketClient.java:879)
+	at net.dv8tion.jda.internal.requests.WebSocketClient.onBinaryMessage(WebSocketClient.java:1054)
+	at com.neovisionaries.ws.client.ListenerManager.callOnBinaryMessage(ListenerManager.java:385)
+	at com.neovisionaries.ws.client.ReadingThread.callOnBinaryMessage(ReadingThread.java:276)
+	at com.neovisionaries.ws.client.ReadingThread.handleBinaryFrame(ReadingThread.java:996)
+	at com.neovisionaries.ws.client.ReadingThread.handleFrame(ReadingThread.java:755)
+	at com.neovisionaries.ws.client.ReadingThread.main(ReadingThread.java:108)
+	at com.neovisionaries.ws.client.ReadingThread.runMain(ReadingThread.java:64)
+	at com.neovisionaries.ws.client.WebSocketThread.run(WebSocketThread.java:45)
+2025-04-26 00:27:29.300 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Starting Trophy Bot...
+2025-04-26 00:27:29.301 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Initializing Trophy Bot...
+2025-04-26 00:27:29.303 [main] INFO  c.a.trophybot.ConfigManager - Configuration loaded successfully
+2025-04-26 00:27:29.303 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Configuration loaded successfully
+2025-04-26 00:27:29.303 [main] INFO  c.a.trophybot.DatabaseManager - Initializing database connection to: jdbc:sqlite:trophies.db
+2025-04-26 00:27:29.500 [main] INFO  c.a.trophybot.DatabaseManager - Database schema initialized successfully
+2025-04-26 00:27:29.501 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Database connection established successfully
+2025-04-26 00:27:30.097 [main] INFO  net.dv8tion.jda.api.JDA - Login Successful!
+2025-04-26 00:27:30.108 [main] INFO  c.amongthesloths.trophybot.TrophyBot - JDA instance initialized successfully
+2025-04-26 00:27:30.117 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Slash commands registered successfully
+2025-04-26 00:27:30.118 [main] INFO  c.amongthesloths.trophybot.TrophyBot - Trophy Bot started successfully!
+2025-04-26 00:27:30.333 [JDA MainWS-ReadThread] INFO  n.d.j.i.requests.WebSocketClient - Connected to WebSocket
+2025-04-26 00:27:30.372 [ForkJoinPool.commonPool-worker-1] INFO  c.amongthesloths.trophybot.TrophyBot - Successfully registered slash commands
+2025-04-26 00:27:30.549 [JDA MainWS-ReadThread] INFO  net.dv8tion.jda.api.JDA - Finished Loading!
+2025-04-26 00:27:57.068 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Creating new trophy: test
+2025-04-26 00:27:57.083 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Trophy created successfully: com.amongthesloths.trophybot.models.Trophy@5640a47e
+2025-04-26 00:28:12.923 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Awarding trophy 2 to user 326467375127855104 by 134418476717572097
+2025-04-26 00:28:12.926 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Trophy awarded successfully
+2025-04-26 00:28:47.088 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Awarding trophy 2 to user 326467375127855104 by 134418476717572097
+2025-04-26 00:28:47.092 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Trophy awarded successfully
+2025-04-26 00:28:55.485 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Awarding trophy 2 to user 134418476717572097 by 134418476717572097
+2025-04-26 00:28:55.489 [JDA MainWS-ReadThread] INFO  c.a.trophybot.DatabaseManager - Trophy awarded successfully
