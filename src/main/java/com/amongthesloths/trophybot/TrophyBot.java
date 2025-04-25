@@ -79,8 +79,11 @@ public class TrophyBot {
                         .addOption(OptionType.INTEGER, "trophy_id", "ID der anzuzeigenden Trophäe", true),
                     new SubcommandData("profile", "Zeige Trophäen eines Spielers")
                         .addOption(OptionType.USER, "user", "Der Benutzer, dessen Profil angezeigt werden soll", false),
-                    new SubcommandData("leaderboard", "Zeige das Trophy-Leaderboard")
-                ),
+                    new SubcommandData("leaderboard", "Zeige das Trophy-Leaderboard"),
+                        new SubcommandData("remove", "Loesche eine Trophy eines Users.")
+                                .addOption(OptionType.USER, "user", "Der Benutzer, der die Trophäe verlieren soll", true)
+                                .addOption(OptionType.INTEGER, "trophy_id", "ID der zu vergebenden Trophäe", true)
+                        ),
             Commands.slash("admin", "Administrative Befehle (nur für Admins)")
         ).queue(
             success -> logger.info("Successfully registered slash commands"),
