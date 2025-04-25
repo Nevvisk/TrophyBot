@@ -21,4 +21,5 @@ target/
 *.json
 *.xml
 *.log
+*.db
 

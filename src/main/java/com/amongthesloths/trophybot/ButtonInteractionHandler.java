@@ -71,7 +71,7 @@ public class ButtonInteractionHandler extends ListenerAdapter {
 			EmbedBuilder eb = new EmbedBuilder()
 					.setTitle("Gewinner der Trophäe: " + trophy.getName())
 					.setColor(Color.YELLOW)
-					.setThumbnail(trophy.getIconUrl())
+					.setThumbnail(trophy.getEmoji())
 					.setTimestamp(Instant.now());
 
 			if (winners.isEmpty()) {

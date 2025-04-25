@@ -20,9 +20,10 @@ public class UserTrophy {
         this.awardedBy = awardedBy;
     }
 
-    public UserTrophy(Trophy trophy, Timestamp awardDate) {
+    public UserTrophy(Trophy trophy, Timestamp awardDate, String awardedBy) {
         this.trophy = trophy;
         this.awardDate = awardDate;
+        this.awardedBy = Long.parseLong(awardedBy);
     }
 
     // Getters and Setters
@@ -80,5 +81,10 @@ public class UserTrophy {
 
     public void setAwardDate(Timestamp awardDate) {
         this.awardDate = awardDate;
+    }
+
+    public String getFormattedAwardDate() {
+        if (awardDate == null) return "Unbekannt";
+        return awardDate.toLocalDateTime().format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
     }
 } 

@@ -47,11 +47,11 @@ public class Trophy {
         this.description = description;
     }
 
-    public String getIconUrl() {
+    public String getEmoji() {
         return emoji;
     }
 
-    public void setIconUrl(String emoji) {
+    public void setEmoji(String emoji) {
         this.emoji = emoji;
     }
 

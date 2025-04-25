@@ -69,6 +69,9 @@ java -jar target/trophy-bot-1.0-SNAPSHOT.jar
 - `/trophy award` - Vergebe eine Trophäe an einen Spieler (Admin)
   - `user`: Der Benutzer, der die Trophäe erhalten soll
   - `trophy_id`: ID der zu vergebenden Trophäe
+- `/trophy remove` - Entferne eine Trophäe von einem Spieler (Admin)
+  - `user`: Der Benutzer, von dem die Trophäe entfernt werden soll
+  - `trophy_id`: ID der zu entfernenden Trophäe
 - `/trophy list` - Zeige alle verfügbaren Trophäen
 - `/trophy show` - Zeige Details einer Trophäe
   - `trophy_id`: ID der anzuzeigenden Trophäe

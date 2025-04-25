@@ -127,7 +127,7 @@ public class DatabaseManager {
     public List<UserTrophy> getUserTrophies(String userId) throws SQLException {
         logger.debug("Fetching trophies for user {}", userId);
         List<UserTrophy> userTrophies = new ArrayList<>();
-        String sql = "SELECT t.*, ta.awarded_at FROM trophies t " +
+        String sql = "SELECT t.*, ta.awarded_at, ta.awarded_by FROM trophies t " +
                     "JOIN trophy_awards ta ON t.id = ta.trophy_id " +
                     "WHERE ta.user_id = ? " +
                     "ORDER BY ta.awarded_at DESC";
@@ -143,8 +143,9 @@ public class DatabaseManager {
                         resultSet.getTimestamp("created_at").toLocalDateTime(),
                         resultSet.getString("created_by")
                     );
-                    UserTrophy userTrophy = new UserTrophy(trophy, resultSet.getTimestamp("awarded_at"));
-                    userTrophies.add(userTrophy);
+                    Timestamp awardedAt = resultSet.getTimestamp("awarded_at");
+                    String awardedBy = resultSet.getString("awarded_by");
+                    userTrophies.add(new UserTrophy(trophy, awardedAt, awardedBy));
                 }
             }
             logger.debug("Retrieved {} trophies for user {}", userTrophies.size(), userId);
@@ -184,8 +185,10 @@ public class DatabaseManager {
     public List<UserTrophy> getUsersWithTrophy(int trophyId) throws SQLException {
         logger.debug("Fetching users with trophy ID: {}", trophyId);
         List<UserTrophy> userTrophies = new ArrayList<>();
-        String sql = "SELECT ut.user_id, ut.award_date, t.* FROM user_trophies ut " +
-                     "JOIN trophies t ON ut.trophy_id = t.id WHERE ut.trophy_id = ?";
+        String sql = "SELECT t.*, ta.awarded_at, ta.awarded_by FROM trophies t " +
+                    "JOIN trophy_awards ta ON t.id = ta.trophy_id " +
+                    "WHERE t.id = ? " +
+                    "ORDER BY ta.awarded_at DESC";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, trophyId);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -198,8 +201,11 @@ public class DatabaseManager {
                         resultSet.getTimestamp("created_at").toLocalDateTime(),
                         resultSet.getString("created_by")
                     );
-                    UserTrophy userTrophy = new UserTrophy(trophy, resultSet.getTimestamp("award_date"));
-                    userTrophies.add(userTrophy);
+                    userTrophies.add(new UserTrophy(
+                        trophy,
+                        resultSet.getTimestamp("awarded_at"),
+                        resultSet.getString("awarded_by")
+                    ));
                 }
             }
             logger.debug("Retrieved {} users with trophy ID: {}", userTrophies.size(), trophyId);
@@ -258,6 +264,25 @@ public class DatabaseManager {
             return leaderboard;
         } catch (SQLException e) {
             logger.error("Failed to fetch leaderboard", e);
+            throw e;
+        }
+    }
+
+    public void removeTrophy(String userId, int trophyId) throws SQLException {
+        logger.info("Removing trophy {} from user {}", trophyId, userId);
+        String sql = "DELETE FROM trophy_awards WHERE user_id = ? AND trophy_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, userId);
+            statement.setInt(2, trophyId);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                logger.info("Trophy removed successfully");
+            } else {
+                logger.warn("No trophy found to remove for user {} and trophy {}", userId, trophyId);
+                throw new SQLException("Trophy not found for this user");
+            }
+        } catch (SQLException e) {
+            logger.error("Failed to remove trophy {} from user {}", trophyId, userId, e);
             throw e;
         }
     }
