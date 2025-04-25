@@ -20,4 +20,5 @@ target/
 *.properties
 *.json
 *.xml
+*.log
 
