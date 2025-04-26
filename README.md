@@ -79,7 +79,7 @@ java -jar target/trophy-bot-1.0-SNAPSHOT.jar
   - `user`: (Optional) Der Benutzer, dessen Profil angezeigt werden soll
 - `/trophy leaderboard` - Zeige das Trophy-Leaderboard
 
-### Admin-Befehle
+### Admin-Befehle (geht noch nicht)
 
 - `/admin reset` - Setzt alle Trophäen zurück (Admin)
 - `/admin backup` - Sichert die Datenbank (Admin)
