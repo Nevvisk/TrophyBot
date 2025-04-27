@@ -22,5 +22,5 @@ jobs:
       with:
         github-push-secret: ${{secrets.GITHUB_TOKEN}}
         docker-image-name: nevvisk-trophy-bot
-        dockerfile-path: TrophyBot/Dockerfile
+        dockerfile-path: dockerfile
         build-context: .
