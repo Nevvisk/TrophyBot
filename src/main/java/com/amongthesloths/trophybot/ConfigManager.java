@@ -1,13 +1,12 @@
 package com.amongthesloths.trophybot;
 
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.*;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 public class ConfigManager {
 	private static final Logger logger = LoggerFactory.getLogger(ConfigManager.class);
@@ -15,16 +14,15 @@ public class ConfigManager {
 
 	public ConfigManager(URL configUrl) {
 		try {
-			// Try to load the config from the provided URL
 			try (InputStream is = configUrl.openStream();
-				 BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-				
+					BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+
 				StringBuilder content = new StringBuilder();
 				String line;
 				while ((line = reader.readLine()) != null) {
 					content.append(line);
 				}
-				
+
 				String configContent = content.toString();
 				if (!configContent.isBlank()) {
 					this.config = new JSONObject(configContent);
@@ -38,7 +36,7 @@ public class ConfigManager {
 			logger.warn("Could not load config file, creating default configuration", e);
 			this.config = createDefaultConfig();
 		}
-		
+
 		if (this.config == null) {
 			throw new RuntimeException("Failed to initialize configuration");
 		}
@@ -48,16 +46,13 @@ public class ConfigManager {
 		JSONObject defaultConfig = new JSONObject();
 		defaultConfig.put(
 				"database",
-				new JSONObject()
-					.put("url", "jdbc:sqlite:trophies.db")
-					.put("user", "")
-					.put("password", ""));
+				new JSONObject().put("url", "jdbc:sqlite:trophies.db").put("user", "").put("password", ""));
 
 		defaultConfig.put(
 				"permissions",
 				new JSONObject()
-					.put("admin_roles", new JSONArray())
-					.put("trophy_manager_roles", new JSONArray()));
+						.put("admin_roles", new JSONArray())
+						.put("trophy_manager_roles", new JSONArray()));
 
 		return defaultConfig;
 	}
